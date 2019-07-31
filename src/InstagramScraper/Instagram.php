@@ -1637,4 +1637,16 @@ class Instagram
             throw new InstagramException('Response status is ' . $jsonResponse['status'] . '. Body: ' . static::getErrorBody($response->body) . ' Something went wrong. Please report issue.', $response->code);
         }
     }
+
+    /**
+    * @param $accountId
+    * @throws InstagramException
+    */
+    public function follow($accountId)
+    {
+        $response = Request::post(Endpoints::getFollowUrl($accountId), $this->generateHeaders($this->userSession));
+        if ($response->code !== static::HTTP_OK) {
+           throw new InstagramException('Response code is ' . $response->code . '. Body: ' . static::getErrorBody($response->body) . ' Something went wrong. Please report issue.', $response->code);
+        }
+    }
 }
